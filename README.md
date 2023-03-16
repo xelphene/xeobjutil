@@ -46,6 +46,22 @@ Note that the objects created automatically as a result of the assignments
 via the Proxy have an `always: 222` property but the object literal
 assignment does not.
 
+## make
+
+A functional shortcut for constructing objects with xeobjutil:
+
+```
+var xeobjutil = require('xeobjutil');
+
+var o = xeobjutil.make( p => {
+    p.a.b = 222;
+    p.x.y.z = 222.1;
+});
+
+console.log(o);
+// { a: { b: 222 }, x: { y: { z: 222.1 } } }
+```
+
 ## clean
 
 xeobjutil adds a non-enumerable Symbol property to each object it creates so

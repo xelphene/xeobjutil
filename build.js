@@ -64,3 +64,11 @@ function init (options)
     return [o,p];
 };
 exports.init = init;
+
+function make (f) {
+    var [o,p] = init();
+    f(p);
+    o = clean(o);
+    return o;
+};
+exports.make = make;
