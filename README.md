@@ -217,6 +217,36 @@ console.log( xeobjutil.flatGet(a, 'x.obj.privobj_A')  );
 // exception
 ```
 
+## deepHas / deepGet
+
+Given an array specifying a "path" through some xeobjutil-created objects,
+return true/false if a property exists there or return the value of it.
+
+```
+const xeobjutil = require('xeobjutil');
+var sym = Symbol('testSym');
+
+var [a,ap] = xeobjutil.init();
+ap.x.strA = 'asdf';
+ap.x.obj = {privobj_A: 900};
+ap.num = 222;
+ap.x[sym] = 'A sym';
+
+console.log( xeobjutil.deepHas(a, ['x', 'obj'] )  );
+// true
+console.log( xeobjutil.deepHas(a, ['x', 'obj', 'privobj_A'] )  );
+// false
+console.log( xeobjutil.deepHas(a, ['x', sym] )  );
+// true
+
+console.log( xeobjutil.deepGet(a, ['x','obj'] )  );
+// { privobj_A: 900 }
+console.log( xeobjutil.deepGet(a, ['x', 'obj', 'privobj_A'] )  );
+// exception
+console.log( xeobjutil.deepGet(a, ['x', sym] )  );
+// 'A sym'
+```
+
 # Copyright and License
 
 Copyright (C) 2023 Steve Benson

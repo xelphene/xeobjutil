@@ -12,3 +12,5 @@ exports.deepCopy = require('./copy').deepCopy;
 exports.collapse = require('./flat').collapse;
 exports.flatHas = require('./flat').flatHas;
 exports.flatGet = require('./flat').flatGet;
+exports.deepHas = require('./deep').deepHas;
+exports.deepGet = require('./deep').deepGet;
