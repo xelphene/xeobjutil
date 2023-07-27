@@ -1,7 +1,7 @@
 
 'use strict';
 
-const ours = require('./consts').ours;
+const {ours, xeObjCreate} = require('./consts');
 
 const clean = require('./clean').clean;
 
@@ -39,9 +39,12 @@ function init (options)
     if( options===undefined )
         options = {
             create: undefined,
-            base: undefined
+            base: undefined,
+            xePropsEnum: undefined,
         };
     
+    if( options.xePropsEnum===undefined )
+        options.xePropsEnum = false;
     if( options.create===undefined )
         options.create = function() { return {} };
     
@@ -49,7 +52,11 @@ function init (options)
         let n = options.create();
         Object.defineProperty(n, ours, {
             value: true,
-            enumerable: true
+            enumerable: options.xePropsEnum
+        });
+        Object.defineProperty(n, xeObjCreate, {
+            value: createOurs,
+            enumerable: options.xePropsEnum
         });
         return n;
     }

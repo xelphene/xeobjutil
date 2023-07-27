@@ -7,7 +7,7 @@ var sym = Symbol('testSym');
 
 var xeobjutil = require('../index');
 
-var [a,ap] = xeobjutil.init();
+var [a,ap] = xeobjutil.init({xePropsEnum:true});
 ap.x.strA = 'asdf';
 ap.x.x2.v = 'woo';
 ap.x.obj = {privobj_A: 900};
@@ -34,4 +34,8 @@ console.log( xeobjutil.deepGet(a, ['x', sym ]  ) );
 
 console.log('');
 
+xeobjutil.deepSet(a, ['x','x2','u'], 2525);
+xeobjutil.deepSet(a, ['x','x3','u'], 2626);
 
+console.log(a);
+console.log( xeobjutil.clean(a) );

@@ -15,3 +15,4 @@ exports.flatHas = require('./flat').flatHas;
 exports.flatGet = require('./flat').flatGet;
 exports.deepHas = require('./deep').deepHas;
 exports.deepGet = require('./deep').deepGet;
+exports.deepSet = require('./deep').deepSet;

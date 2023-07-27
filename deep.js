@@ -1,7 +1,7 @@
 
 'use strict';
 
-const {ours} = require('./consts');
+const {ours, xeObjCreate} = require('./consts');
 
 function deepHas(o, path)
 {
@@ -43,4 +43,22 @@ function deepGet(o, path)
 		throw new Error(`path ${path} not found`);
 }
 exports.deepGet = deepGet;
+
+
+function deepSet(o, path, value)
+{
+	if( path.length==1 ) {
+ 		o[path[0]] = value;
+		return;
+	}
+
+	let i = path[0];
+
+	if( ! o.hasOwnProperty(i) ) {
+		o[i] = o[xeObjCreate]();
+	}
+	
+	deepSet(o[i], path.slice(1), value);
+}
+exports.deepSet = deepSet;
 
