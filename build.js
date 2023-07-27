@@ -49,7 +49,7 @@ function init (options)
         let n = options.create();
         Object.defineProperty(n, ours, {
             value: true,
-            enumerable: false
+            enumerable: true
         });
         return n;
     }
@@ -72,3 +72,32 @@ function make (f) {
     return o;
 };
 exports.make = make;
+
+function convert(origObject, options)
+{
+    if( options===undefined )
+        options = {
+            recurse: undefined,
+            iterProps: undefined,
+        };
+    
+    if( options.recurse===undefined )
+        options.recurse = o => ! Array.isArray(o);
+    if( options.iterProps===undefined )
+        options.iterProps = Object.keys;
+
+    var [o,p] = init();
+
+    for( let k of options.iterProps(origObject) )
+    {
+        if( typeof(origObject)[k]=='object' && options.recurse(origObject[k]) ) {
+            let [o2,p2] = convert(origObject[k], options);
+            o[k] = o2;
+        } else {
+            o[k] = origObject[k];
+        }
+    }
+
+    return [o,p];
+}
+exports.convert = convert;
